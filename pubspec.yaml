@@ -39,6 +39,8 @@ dependencies:
   dio: ^5.4.3+1
   qr_image: ^1.0.0
   qr_flutter: ^4.1.0
+  dartz: ^0.10.1
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

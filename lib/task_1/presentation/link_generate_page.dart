@@ -7,6 +7,8 @@ import 'package:work_assign/task_1/presentation/qr_image_file.dart';
 import 'package:work_assign/task_1/presentation/widgets/custom_button.dart';
 import 'package:work_assign/task_1/presentation/widgets/custom_textfield.dart';
 
+import '../../core/api_manager.dart';
+
 class LinkGeneratePage extends StatefulWidget {
   const LinkGeneratePage({super.key});
 
@@ -16,38 +18,13 @@ class LinkGeneratePage extends StatefulWidget {
 
 class _LinkGeneratePageState extends State<LinkGeneratePage> {
   String generatedLink = '';
-  TextEditingController urlText= TextEditingController();
-  final dio = Dio(); // With default `Options`.
+  TextEditingController urlText = TextEditingController();
+  final _apiService = ApiManager.instance;
 
-    // Or create `Dio` with a `BaseOptions` instance.
-    final options = BaseOptions(
-      baseUrl:
-          '$baseurl+create?api_token=$apiToken',
-      connectTimeout: Duration(seconds: 5),
-      receiveTimeout: Duration(seconds: 3),
-    );
-
-  urlReponseHandling() async {
-    final response = await dio.post(
-      '$baseurl/create?api_token=$apiToken',
-      data: {
-        "url": urlText.text,
-        "domain": domainName,
-        "description": "string"
-      },
-      options: Options(
-        headers: {
-          'accept': 'application/json',
-          "authorization":
-              "Bearer $apiToken",
-          "Content-Type": "application/json",
-        },
-      ),
-      onSendProgress: (int sent, int total) {
-        print('$sent $total');
-      },
-    );
-    return UrlCreateModel.fromJson(response.data).data.url.toString();
+  urlResponseHandling() async {
+    UrlCreateModel response = await _apiService.getUrl(urlText.text.toString());
+    print(response);
+    return response.data.url;
   }
 
   @override
@@ -67,15 +44,14 @@ class _LinkGeneratePageState extends State<LinkGeneratePage> {
             SizedBox(height: 10.sp),
             CustomButton(
                 text: "Generate short links",
-              onPressed: () async {
-                final link = await urlReponseHandling();
-                if (link != null) {
-                  setState(() {
-                    generatedLink = link;
-                  });
-                }
-              }
-    ),
+                onPressed: () async {
+                  final link = await urlResponseHandling();
+                  if (link != null) {
+                    setState(() {
+                      generatedLink = link;
+                    });
+                  }
+                }),
             generatedLink == ''
                 ? const Text('No Qr code')
                 : QrImage(generatedLink),
