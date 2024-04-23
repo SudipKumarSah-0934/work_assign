@@ -1,4 +1,4 @@
-# work_assign
+# Short link generator app
 
 A new Flutter project.
 
@@ -6,4 +6,7 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
-You can by cloning and do pub get.
+## Feature
+ - Simple ui to generate shortened link from tiny url
+ - Clone repo and hit pub get 
+ - type your url, as a result, get qr which on scanning opens created url in browser

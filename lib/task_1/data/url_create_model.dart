@@ -11,7 +11,7 @@ class UrlCreateModel {
 
   factory UrlCreateModel.fromJson(Map<String, dynamic> json) {
     return UrlCreateModel(
-      data: Data.fromJson(json['data']),
+      data: Data.fromJson(json['data']??''),
       code: json['code'],
       errors: List<dynamic>.from(json['errors']),
     );

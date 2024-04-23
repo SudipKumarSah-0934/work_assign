@@ -1,7 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:work_assign/core/constants.dart';
 import 'package:work_assign/task_1/data/url_create_model.dart';
 import 'package:work_assign/task_1/presentation/qr_image_file.dart';
 import 'package:work_assign/task_1/presentation/widgets/custom_button.dart';
